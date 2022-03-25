@@ -1,0 +1,36 @@
+{% extends 'myapp/base.html' %}
+
+{% block content %}
+<div class="row">
+  <div class="col-md-6 ms-md-auto">
+    <div class="card m-3">
+      <img src="{{ object.thumbnail.url }}" class="card-img-top" alt="{{ object.title }}"/>
+      <div class="card-body">
+        <h4 class="card-title">{{ object.title }}</h4>
+        <p class="card-text">{{ object.content | linebreaksbr | urlize }}</p>
+        <a href="{% url 'myapp:like_add' object.pk %}"><i class="fas fa-heart fa-lg"></i></a>
+        {% if object.author == request.user %}
+        <a href="{% url 'myapp:post_update' object.id %}"><i class="fas fa-pencil-alt fa-lg"></i></a>
+        <a href="{% url 'myapp:post_delete' object.id %}"><i class="fas fa-trash-alt fa-lg"></i></a>
+        {% endif %}
+        <p class="card-text">
+          <small class="text-muted">{{ object.created_at }}</small>
+        </p>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-3">
+    <div class="card text-center mt-4">
+      <div class="card-body">
+        <h4 class="card-title">{{ object.category }}</h4>
+        <p class="card-text mt-4">このカテゴリの記事</p>
+      </div>
+      <ul class="list-group list-group-flush">
+        {% for item in category_posts %}
+        <li class="list-group-item"><a href="{% url 'myapp:post_detail' item.id %}">{{ item.title }}</a></li>
+        {% endfor %}
+      </ul>
+    </div>
+  </div>
+</div>
+{% endblock %}

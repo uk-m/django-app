@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>@yield('title')</title>
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" rel="stylesheet" />
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" rel="stylesheet" />
+    <!-- MDB -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/3.10.2/mdb.min.css" rel="stylesheet" />
+  </head>
+
+  <body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <div class="container-fluid">
+        <a class="navbar-brand me-2" href="/">
+          <img src="https://mdbcdn.b-cdn.net/img/logo/mdb-transaprent-noshadows.webp" height="16" alt="MDB Logo"
+            loading="lazy" style="margin-top: -1px;" />
+        </a>
+
+        <button class="navbar-toggler" type="button" data-mdb-toggle="collapse" data-mdb-target="#navbarButtonsExample"
+          aria-controls="navbarButtonsExample" aria-expanded="false" aria-label="Toggle navigation">
+          <i class="fas fa-bars"></i>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarButtonsExample">
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'myapp:index' %}"><i class="fas fa-home fa-lg"></i></a>
+            </li>
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="category"
+                  role="button" data-mdb-toggle="dropdown" aria-expanded="false">
+                    カテゴリ
+              </a>
+              <ul class="dropdown-menu" aria-labelledby="category">
+                {% for item in category_list %}
+                <li>
+                  <a class="dropdown-item" href="{% url 'myapp:category_detail' item.name_en %}">{{ item.name }}</a>
+                </li>
+                {% endfor %}
+                <li><hr class="dropdown-divider" /></li>
+                <li>
+                  <a class="dropdown-item" href="{% url 'myapp:category_list' %}">カテゴリ一覧</a>
+                </li>
+              </ul>
+            </li>
+          </ul>
+
+          <div class="d-flex align-items-center">
+            {% if request.user.is_authenticated %}
+              <div class="nav-item">
+                <a class="nav-link" href="{% url 'myapp:post_create' %}"><i class="far fa-plus-square fa-lg"></i></a>
+              </div>
+              <div class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="account"
+                role="button" data-mdb-toggle="dropdown" aria-expanded="false">
+                  <i class="fas fa-user fa-lg"></i>
+                </a>
+                <ul class="dropdown-menu" aria-labelledby="account">
+                  <li>
+                    <a class="dropdown-item" href="#">アカウント編集</a>
+                  </li>
+                  <li>
+                    <a class="dropdown-item" href="{% url 'myapp:logout' %}">ログアウト</a>
+                  </li>
+                  <li>
+                    <a class="dropdown-item" href="/admin">管理画面</a>
+                  </li>
+                </ul>
+              </div>
+              <form action="{% url 'myapp:search' %}" class="input-group w-auto" method="POST">
+                {% csrf_token %}
+                <input type="search" class="form-control rounded" placeholder="Search" aria-label="Search", name="freeword">
+                <button class="btn btn-primary" type="submit"><i class="fas fa-search"></i></button>
+              </form>
+            {% else %}
+              <a class="btn btn-link px-3 me-2" href="{% url 'myapp:login' %}">
+                ログイン
+              </a>
+              <a type="button" class="btn btn-primary me-3" href="{% url 'myapp:signup' %}">
+                新規登録
+              </a>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <main class='container'>
+      {% if messages %}
+        {% for message in messages %}
+        <div class="alert alert-{{ message.tags }}" role="alert">{{ message }}</div>
+        {% endfor %}
+      {% endif %}
+    {% block content %}
+    {% endblock %}
+    </main>
+    <footer class="bg-light text-center text-white">
+      <div class="container p-4 pb-0">
+        <section class="mb-4">
+          <a class="btn btn-primary btn-floating m-1" style="background-color: #3b5998;" href="#!" role="button"><i
+              class="fab fa-facebook-f"></i></a>
+
+          <!-- Twitter -->
+          <a class="btn btn-primary btn-floating m-1" style="background-color: #55acee;" href="#!" role="button"><i
+              class="fab fa-twitter"></i></a>
+
+          <!-- Google -->
+          <a class="btn btn-primary btn-floating m-1" style="background-color: #dd4b39;" href="#!" role="button"><i
+              class="fab fa-google"></i></a>
+
+          <!-- Instagram -->
+          <a class="btn btn-primary btn-floating m-1" style="background-color: #ac2bac;" href="#!" role="button"><i
+              class="fab fa-instagram"></i></a>
+
+          <!-- Linkedin -->
+          <a class="btn btn-primary btn-floating m-1" style="background-color: #0082ca;" href="#!" role="button"><i
+              class="fab fa-linkedin-in"></i></a>
+          <!-- Github -->
+          <a class="btn btn-primary btn-floating m-1" style="background-color: #333333;" href="#!" role="button"><i
+              class="fab fa-github"></i></a>
+        </section>
+      </div>
+
+      <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
+        © 2020 Copyright:
+        <a class="text-white" href="https://mdbootstrap.com/">MDBootstrap.com</a>
+      </div>
+    </footer>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/3.10.2/mdb.min.js"></script>
+  </body>
+
+</html>

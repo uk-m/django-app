@@ -1,0 +1,29 @@
+{% extends 'myapp/base.html' %}
+
+{% block content %}
+<h2 class="p-5 text-center">新規投稿</h2>
+<div class="row">
+  <div class="col-md-6 offset-md-3 text-center">
+    <form action="" method="post" enctype="multipart/form-data">
+      {% csrf_token %}
+      <div class="form-outline mb-4">
+        {{ form.title }}
+        <label class="form-label">タイトル</label>
+      </div>
+      <div class="mb-4">
+        <label class="form-label">カテゴリー</label>
+        {{ form.category }}
+      </div>
+      <div class="mb-4">
+        <label class="form-label">画像</label>
+        {{ form.thumbnail }}
+      </div>
+      <div class="form-outline mb-4">
+        {{ form.content }}
+        <label class="form-label">内容</label>
+      </div>
+      <button type="submit" class="btn btn-primary mb-4">保存</button>
+    </form>
+  </div>
+</div>
+{% endblock %}
