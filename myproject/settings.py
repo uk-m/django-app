@@ -153,9 +153,11 @@ MEDIA_URL = "https://%s/%s/" % (AWS_S3_CUSTOM_DOMAIN, AWS_LOCATION)
 
 # herokuデプロイ
 
-STATICFILES_DIRS = (os.path.join(BASE_DIR, 'static'),)
+DATABASES['default'] = dj_database_url.config()
 
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FOWARDED_PROTO', 'https')
+
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 try:
     from .local_settings import *
@@ -166,6 +168,3 @@ if not DEBUG:
     SECRET_KEY = os.environ['SECRET_KEY']
     AWS_ACCESS_KEY_ID = os.environ['AWS_ACCESS_KEY_ID']
     AWS_SECRET_ACCESS_KEY = os.environ['AWS_SECRET_ACCESS_KEY']
-
-db_from_env = dj_database_url.config(conn_max_age=600, ssl_require=True)
-DATABASES['default'].update(db_from_env)

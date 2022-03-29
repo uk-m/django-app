@@ -7,7 +7,7 @@
     <div class="row">
     {% for item in category_list %}
       <div class="col-4">
-        <a href="{% url 'myapp:category_detail' item.name_en %}">{{ item.name }}</a>
+        <a href="{% url 'myapp:category_detail' item.name_en %}">{{ item.name }}</a>\n
         <small>[ {{ item.post_count }} ]</small>
       </div>
     {% endfor %}
