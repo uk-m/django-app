@@ -5,7 +5,7 @@ from django.contrib.auth.models import User
 
 class Category(models.Model):
   name = models.CharField('カテゴリ名', max_length=20)
-  name_en = models.CharField('カテゴリ名英語', max_length=10)
+  name_en = models.CharField('カテゴリ名英語', max_length=20)
   created_at = models.DateTimeField(auto_now_add=True)
   update_at = models.DateTimeField(auto_now=True)
 

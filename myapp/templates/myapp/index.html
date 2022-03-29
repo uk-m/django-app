@@ -7,12 +7,13 @@
       {% for item in post_list %}
       <div class="col-md-4">
         <div class="card">
+          <div class="card-header">{{ item.author }}</div>
           <img src="{{ item.thumbnail.url }}" class="card-img-top"
             alt="{{ item.title }}">
             <a href="{% url 'myapp:post_detail' item.id %}"><div class="mask rgba-white-slight"></div></a>
           <div class="card-body">
-            <h4 class="card-title">{{ item.title }}<small>{{ item.author }}</small></h4>
-            <small>{{ item.category }}</small>
+            <h4 class="card-title">{{ item.title }}</h4>
+            <span class="badge badge-info">{{ item.category }}</span>
             <p class="card-text">{{ item.content | truncatechars:50 }}</p>
             <a href="{% url 'myapp:post_detail' item.id %}">もっと読む</a>
             <p class="card-text">
