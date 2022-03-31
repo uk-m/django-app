@@ -6,7 +6,7 @@
   {% for item in post_list %}
   <div class="col-md-4">
     <div class="card">
-      <div class="card-header">{{ item.author }}</div>
+      <div class="card-header"><strong>{{ item.author }}</strong></div>
       <img src="{{ item.thumbnail.url }}" class="card-img-top"
         alt="{{ item.title }}">
         <a href="{% url 'myapp:post_detail' item.id %}"><div class="mask rgba-white-slight"></div></a>
