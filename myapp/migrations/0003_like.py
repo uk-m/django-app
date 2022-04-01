@@ -17,8 +17,8 @@ class Migration(migrations.Migration):
             name='Like',
             fields=[
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('post', models.ForeignKey(on_delete=django.db.models.deletion.PROTECT, to='myapp.post', verbose_name='投稿')),
-                ('user', models.ForeignKey(on_delete=django.db.models.deletion.PROTECT, to=settings.AUTH_USER_MODEL, verbose_name='likeしたユーザー')),
+                ('post', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='myapp.post', verbose_name='投稿')),
+                ('user', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL, verbose_name='likeしたユーザー')),
             ],
         ),
     ]
