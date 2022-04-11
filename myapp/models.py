@@ -25,13 +25,13 @@ class Post(models.Model):
   created_at = models.DateTimeField(auto_now_add=True)
   update_at = models.DateTimeField(auto_now=True)
 
+  def like_count(self):
+    n = Like.objects.filter(post = self).count()
+    return n
+
   def __str__(self):
     return self.title
 
 class Like(models.Model):
   post = models.ForeignKey(Post, verbose_name="投稿", on_delete=models.CASCADE)
   user = models.ForeignKey(User, verbose_name="likeしたユーザー", on_delete=models.CASCADE)
-
-  def like_count(self):
-    n = Like.objects.filter(post = self).count()
-    return n
