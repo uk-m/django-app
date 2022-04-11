@@ -31,3 +31,7 @@ class Post(models.Model):
 class Like(models.Model):
   post = models.ForeignKey(Post, verbose_name="投稿", on_delete=models.CASCADE)
   user = models.ForeignKey(User, verbose_name="likeしたユーザー", on_delete=models.CASCADE)
+
+  def like_count(self):
+    n = Like.objects.filter(post = self).count()
+    return n
