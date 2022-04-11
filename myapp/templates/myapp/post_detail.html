@@ -4,14 +4,14 @@
 <div class="row">
   <div class="col-md-6 ms-md-auto">
     <div class="card m-3">
-      <div class="card-header"><strong>{{ object.author }}</strong></div>
+      <div class="card-header align-items-center"><strong>{{ object.author }}</strong></div>
       <img src="{{ object.thumbnail.url }}" class="card-img-top" alt="{{ object.title }}"/>
       <div class="card-body">
         <h4 class="card-title">{{ object.title }}</h4>
         <p class="card-text">{{ object.content | linebreaksbr | urlize }}</p>
         <a href="{% url 'myapp:like_add' object.pk %}"><i class="fas fa-heart fa-lg" style="color:rgb(255, 122, 155);"></i></a>
         {% if object.author == request.user %}
-        <a href="{% url 'myapp:post_update' object.id %}"><i class="fas fa-pencil-alt fa-lg" style="color:aquamarine;"></i></a>
+        <a href="{% url 'myapp:post_update' object.id %}"><i class="fas fa-pencil-alt fa-lg" style="color:darkcyan;"></i></a>
         <a href="{% url 'myapp:post_delete' object.id %}"><i class="fas fa-trash-alt fa-lg" style="color:gray;"></i></a>
         {% endif %}
         <p class="card-text">

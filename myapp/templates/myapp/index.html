@@ -6,7 +6,7 @@
   {% for item in post_list %}
   <div class="col-md-4">
     <div class="card">
-      <div class="card-header"><strong>{{ item.author }}</strong></div>
+      <div class="card-header align-items-center"><strong>{{ item.author }}</strong></div>
       <img src="{{ item.thumbnail.url }}" class="card-img-top"
         alt="{{ item.title }}">
         <a href="{% url 'myapp:post_detail' item.id %}"><div class="mask rgba-white-slight"></div></a>
@@ -15,8 +15,8 @@
         <span class="badge badge-info">{{ item.category }}</span>
         <p class="card-text">{{ item.content | truncatechars:50 }}</p>
         <a href="{% url 'myapp:post_detail' item.id %}">もっと読む</a>
-        {% if object.like_count %}
-          <a href="{% url 'myapp:like_add' object.pk %}"><i class="fas fa-heart fa-lg" style="color:rgb(255, 122, 155);"></i></a>
+        {% if item.like_count %}
+          <a href="{% url 'myapp:like_add' item.pk %}"><i class="fas fa-heart fa-lg" style="color:rgb(255, 122, 155);"></i></a>
           {{ item.like_count }}
         {% endif %}
         <p class="card-text">
