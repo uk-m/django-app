@@ -16,4 +16,5 @@ urlpatterns = [
   path('category_list', views.CategoryList.as_view(), name='category_list'),
   path('category_detail/<str:name_en>', views.CategoryDetail.as_view(), name='category_detail'),
   path('search', views.Search, name='search'),
+  path('guest_login/', views.guest_login, name = 'guest_login'),
 ]

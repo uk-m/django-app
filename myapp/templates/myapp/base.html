@@ -76,10 +76,11 @@
                 <button class="btn btn-primary" type="submit"><i class="fas fa-search"></i></button>
               </form>
             {% else %}
+              <a href="{% url 'guest_login' %}">ゲストログイン</a>
               <a class="btn btn-link px-3 me-2" href="{% url 'myapp:login' %}">
                 ログイン
               </a>
-              <a type="button" class="btn btn-primary me-3" href="{% url 'myapp:signup' %}">
+              <a href="{% url 'myapp:signup' %}">
                 新規登録
               </a>
             {% endif %}
