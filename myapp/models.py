@@ -2,7 +2,6 @@ from django.db import models
 from django.contrib.auth.models import User
 
 
-
 class Category(models.Model):
   name = models.CharField('カテゴリ名', max_length=20)
   name_en = models.CharField('カテゴリ名英語', max_length=20)
@@ -35,7 +34,3 @@ class Post(models.Model):
 class Like(models.Model):
   post = models.ForeignKey(Post, verbose_name="投稿", on_delete=models.CASCADE)
   user = models.ForeignKey(User, verbose_name="likeしたユーザー", on_delete=models.CASCADE)
-
-class CustomUser(User):
-   class Meta:
-    verbose_name_plural = 'CustomUser'

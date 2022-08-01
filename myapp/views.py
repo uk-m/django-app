@@ -11,7 +11,6 @@ from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.contrib.auth.decorators import login_required
 from django.db.models import Q
 from django.core.paginator import Paginator
-from users.models import CustomUser
 
 
 class OnlyMyPostMixin(UserPassesTestMixin):
@@ -131,8 +130,3 @@ def Search(request):
 
     params = { 'search_list': search_list, }
     return render(request, 'myapp/search.html', params)
-
-def guest_login(request):
-  guest_user = CustomUser.objects.get(email='guestuser@example.com')
-  login(request, guest_user, backend='django.contrib.auth.backends.ModelBackend')
-  return redirect('myapp:index')
