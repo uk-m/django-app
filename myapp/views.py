@@ -21,7 +21,7 @@ class OnlyMyPostMixin(UserPassesTestMixin):
 
 class Index(TemplateView):
   template_name = 'myapp/index.html'
-  paginate_by = 9
+  paginate_by = 4
 
   def get_context_data(self, *args, **kwargs):
     cotext = super().get_context_data(**kwargs)
