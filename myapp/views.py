@@ -10,7 +10,7 @@ from django.contrib.auth import login
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.contrib.auth.decorators import login_required
 from django.db.models import Q
-from django.core.paginator import Paginator
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 
 class OnlyMyPostMixin(UserPassesTestMixin):
@@ -21,7 +21,15 @@ class OnlyMyPostMixin(UserPassesTestMixin):
 
 class Index(TemplateView):
   template_name = 'myapp/index.html'
-  paginate_by = 4
+  paginator = Paginator(Posts, 4)
+  page = request.GET.get('page')
+  try:
+    page_obj = paginator.page(page)
+  except PageNotAnInteger:
+    page_obj = paginator.page(1)
+  except EmptyPage:
+    page_obj = paginatot.page(paginator.num_pages)
+  return page_obj
 
   def get_context_data(self, *args, **kwargs):
     cotext = super().get_context_data(**kwargs)
@@ -65,12 +73,6 @@ class PostDelete(OnlyMyPostMixin, DeleteView):
   def get_success_url(self):
     messages.info(self.request, '削除しました')
     return resolve_url('myapp:index')
-
-class PostList(ListView):
-  model = Post
-
-  def get_queryset(self):
-    return Post.objects.all().order_by('-created_at')
 
 class Login(LoginView):
   form_class = LoginForm

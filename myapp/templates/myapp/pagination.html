@@ -1,29 +1,27 @@
 <nav aria-label="Page navigation example mb-4">
   <ul class="pagination justify-content-center">
     {% if page_obj.has_previous %}
-    <li class="page-item">
-      <a class="page-link" href="?page=1" aria-label="Previous">
-        <span aria-hidden="true">&laquo;</span>
-      </a>
-    </li>
-    <li class="page-item">
-      <a href="?page={{ page_obj.previous_page_number }}">前へ</a>
-    </li>
+      <li><a class="page-link text-primary d-inline-block" href="?page={{ page_obj.previous_page_number }}">前</a></li>
+    {% else %}
+      <li class="disabled"><div class="page-link text-secondary d-inline-block disabled" href="#">前</div></li>
     {% endif %}
-    <li class="page-item">
-      <span class="current">
-        {{ page_obj.number }}
-      </span>
-    </li>
+
+    {% for link_page in page_obj.paginator.page_range %}
+      {% if link_page %}
+        {% if link_page == page_obj.number %}
+          <li class="disabled"><div class="page-link text-secondary d-inline-block disabled" href="#">{{ link_page }}</div></li>
+        {% else %}
+          <li><a class="page-link text-primary d-inline-block" href="?page={{ link_page }}">{{ link_page }}</a></li>
+        {% endif %}
+      {% else %}
+        <li class="disabled"><a class="page-link text-secondary d-inline-block text-muted" href="#">・・・</a></li>
+      {% endif %}
+    {% endfor %}
+
     {% if page_obj.has_next %}
-    <li class="page-item">
-      <a href="?page={{ page_obj.next_page_number }}">次へ</a>
-    </li>
-    <li class="page-item">
-      <a class="page-link" href="?page={{ page_obj.paginator.num_pages }}" aria-label="Previous">
-        <span aria-hidden="true">&laquo;</span>
-      </a>
-    </li>
+      <li><a class="page-link text-primary d-inline-block" href="?page={{ page_obj.next_page_number }}">次</a></li>
+    {% else %}
+      <li class="disabled"><div class="page-link text-secondary d-inline-block disabled" href="#">次</div></li>
     {% endif %}
   </ul>
 </nav>
