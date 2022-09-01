@@ -125,7 +125,6 @@ def Search(request):
     return render(request, 'myapp/search.html', params)
 
 def index(request):
-    post_list = Post.objects.all().order_by('-created_at')
     paginator = Paginator(post_list, 4)
     page = request.GET.get('page')
     try:
@@ -134,5 +133,4 @@ def index(request):
     	page_obj = paginator.page(1)
     except EmptyPage:
     	page_obj = paginator.page(paginator.num_pages)
-    context = {'page_obj': page_obj}
-    return render(request, 'myapp/index.html', context)
+    return render(request, 'myapp/index.html', {'page_obj': page_obj})
