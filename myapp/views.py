@@ -21,6 +21,7 @@ class OnlyMyPostMixin(UserPassesTestMixin):
 
 class Index(TemplateView):
   template_name = 'myapp/index.html'
+  Posts = Post.objects.order_by('created_date').reverse()
   paginator = Paginator(Posts, 4)
   page = request.GET.get('page')
   try:
