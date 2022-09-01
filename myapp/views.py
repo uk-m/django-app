@@ -21,16 +21,6 @@ class OnlyMyPostMixin(UserPassesTestMixin):
 
 class Index(TemplateView):
   template_name = 'myapp/index.html'
-  Posts = Post.objects.order_by('created_date').reverse()
-  paginator = Paginator(Posts, 4)
-  page = request.GET.get('page')
-  try:
-    page_obj = paginator.page(page)
-  except PageNotAnInteger:
-    page_obj = paginator.page(1)
-  except EmptyPage:
-    page_obj = paginatot.page(paginator.num_pages)
-  return page_obj
 
   def get_context_data(self, *args, **kwargs):
     cotext = super().get_context_data(**kwargs)
@@ -133,3 +123,16 @@ def Search(request):
 
     params = { 'search_list': search_list, }
     return render(request, 'myapp/search.html', params)
+
+def index(request):
+    post_list = Post.objects.all().order_by('-created_at')
+    paginator = Paginator(post_list, 4)
+    page = request.GET.get('page')
+    try:
+    	page_obj = paginator.page(page)
+    except PageNotAnInteger:
+    	page_obj = paginator.page(1)
+    except EmptyPage:
+    	page_obj = paginator.page(paginator.num_pages)
+    context = {'page_obj': page_obj}
+    return render(request, 'myapp/index.html', context)
