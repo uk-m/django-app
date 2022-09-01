@@ -124,7 +124,7 @@ def Search(request):
     params = { 'search_list': search_list, }
     return render(request, 'myapp/search.html', params)
 
-def index(request):
+def Index(request):
     post_list = Post.objects.all().order_by('-created_at')
     paginator = Paginator(post_list, 4)
     page = request.GET.get('page')
